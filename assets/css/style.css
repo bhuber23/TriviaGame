@@ -13,6 +13,7 @@ h1 {
 .btn {
     text-align: center;
     width: 200px;
-    height: 60px;
     font-size: 32px;
+    margin-top: 50px;
+    padding: 10px 0;
 }
