@@ -13,9 +13,15 @@
 
 
 //Function to start the game
+function start() {
+    $(".start").on("click", function() {
+        $(".start").hide();
+        displayQuestion();
+    });
+}
+start();
 
-
-//Define questions and answers
+//Define variables
 var questions = [
     {
         question: "Who was the first Avenger?",
@@ -26,7 +32,7 @@ var questions = [
     },
 
     {
-        question: "What is the name of Tony Stark's Father? Howard, Stephen, Chris, Peter",
+        question: "What is the name of Tony Stark's Father?",
         options: ["Chris", "Stephen", "Howard", "Peter"],
         answer: 2,
         image: "assets/images/howard.jpg"
@@ -45,17 +51,57 @@ var questions = [
         answer: 2,
         image: "assets/images/star-lord.gif"
     }
-]
+];
+//console.log(questions);
+//console.log(questions[0].question)
+var correctAnswers = 0;
+var wrongAnswers = 0;
+var list;
+var choice;
+var userChoice = "";
 
 
 //Function that counts down time 
 
 
+
+
 //Function to switch questions/update html
+function displayQuestion() {
+    //to choose random question
+    list = Math.floor(Math.random() * questions.length)
+    choice = questions[list];
+    $("#question-block").html("<h2>" + choice.question + "</h2>");
+    for(var i = 0; i < choice.options.length; i++) {
+        //Adds div for the guess
+        var userChoice = $("<div>");
+        //Adds class to the guess
+        userChoice.addClass("answer-choice");
+        //Updates html with the possible answers to the question
+        userChoice.html(choice.options[i]);
+        //Adds data attribute
+        userChoice.attr("data-guessvalue", questions[i]);
+        //Appends with the guess the user chose
+        $("#answer-block").append(userChoice);
+    }
+}
 
 
-//Store answers to keep score
+//Click function to register the answer that's clicked
+$(".answer-choice").on("click", function() {
+    userChoice = parseInt($(this).attr("data-guessvalue"));
 
+    if (userChoice === choice.answer) {
+        correctAnswers++;
+        userChoice = "";
+        $("#answer-block").html("<p>Correct!</p>");
+    }
+    else {
+        wrongAnswers++;
+        userChoice = "";
+        $("#answer-block").html("<p>Sorry! The correct answer is: " + choice.options[choice.answer] + "</p>");
+    }
+})
 
 //Play game again
 
