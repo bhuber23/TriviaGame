@@ -4,14 +4,11 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-}
-
-h1 {
     text-align: center;
 }
+
 
 .btn {
-    text-align: center;
     width: 200px;
     font-size: 32px;
     margin-top: 50px;
@@ -39,4 +36,8 @@ h1 {
 
 #answer-response {
     background: white;
+}
+
+#timer {
+    background: red;
 }

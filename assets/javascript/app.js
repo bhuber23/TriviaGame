@@ -17,7 +17,9 @@ function start() {
     $(".start").on("click", function() {
         $(".start").hide();
         displayQuestion();
+        setTimer();
         answerClick();
+        
     });
 }
 start();
@@ -57,13 +59,43 @@ var questions = [
 //console.log(questions[0].question)
 var correctAnswers = 0;
 var wrongAnswers = 0;
+var unanswered = 0;
 var list;
 var choice;
 var userChoice = "";
 var answerArray = [];
+var timer = 20;
+var intervalId;
+var running = false;
 
 
-//Function that counts down time 
+
+//Timer functions
+function setTimer() {
+    if (!running) {
+        intervalId = setInterval(decrement, 1000);
+        running = true
+        timer = 20;
+    }
+}
+function decrement() {
+    $("#timer").text("Time remaining: " + timer + " seconds");
+    timer--;
+    if (timer === 0) {
+        unanswered++;
+        stop();
+        $("#answer-block").empty();
+        //$("#answer-response").empty();
+        $("#answer-response").text("Sorry, time is up! The correct answer is: " + choice.answer + "!");
+        
+    }
+}
+function stop() {
+    running = false;
+    clearInterval(intervalId);
+    nextQuestion();
+    
+}
 
 
 
@@ -95,6 +127,7 @@ function displayQuestion() {
     else {
         displayQuestion();
     }
+    setTimer();
 }
 
 
@@ -106,6 +139,7 @@ $(".answer-choice").on("click", function() {
     console.log(chosenAnswer);
 
     if (chosenAnswer === choice.answer) {
+        stop();
         correctAnswers++;
         chosenAnswer = "";
         $("#answer-response").text("Correct!");
@@ -114,9 +148,11 @@ $(".answer-choice").on("click", function() {
         nextQuestion();
     }
     else {
+        stop();
         wrongAnswers++;
         chosenAnswer = "";
         $("#answer-response").text("Sorry! The correct answer is: " + choice.answer + "!");
+        $("#answer-block").empty();
         //Move to next question
         nextQuestion();
     }
@@ -128,6 +164,8 @@ function nextQuestion() {
         displayQuestion();
         answerClick();
         $("#answer-response").empty();
+        //$("#answer-block").empty();
+        $("#timer").empty();
     }, 1000 * 5)
 }
 
