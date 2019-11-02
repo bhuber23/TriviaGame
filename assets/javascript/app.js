@@ -13,6 +13,7 @@
 
 
 //Function to start the game
+
 function start() {
     $(".start").on("click", function() {
         $(".start").hide();
@@ -106,7 +107,7 @@ function displayQuestion() {
     list = Math.floor(Math.random() * questions.length)
     choice = questions[list];
     if (!answerArray.includes(choice)) {
-        $("#question-block").html("<h2>" + choice.question + "</h2>");
+        $("#question-block").text(choice.question);
         for(var i = 0; i < choice.options.length; i++) {
             //Adds div for the guess
             var userChoice = $("<div>");
