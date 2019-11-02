@@ -1,3 +1,7 @@
+$(document).ready(function() {
+   
+
+
 //Questions and answers
 //Who was the first Avenger? Captain America, Iron Man, Black Widow, Thor
 //What is the name of Tony Stark's Father? Howard, Stephen, Chris, Peter
@@ -11,19 +15,6 @@
 //Which Avenger is getting a 4th solo film in Phase 4 of the MCU? Thor, Captain America, Iron Man, Hulk
 
 
-
-//Function to start the game
-
-function start() {
-    $(".start").on("click", function() {
-        $(".start").hide();
-        displayQuestion();
-        setTimer();
-        answerClick();
-        
-    });
-}
-start();
 
 //Define variables
 var questions = [
@@ -70,6 +61,18 @@ var intervalId;
 var running = false;
 
 
+//Function to start the game
+$(".reset").hide();
+function start() {
+    $(".start").on("click", function() {
+        $(".start").hide();
+        displayQuestion();
+        setTimer();
+        answerClick();
+        
+    });
+}
+start();
 
 //Timer functions
 function setTimer() {
@@ -170,6 +173,38 @@ function nextQuestion() {
     }, 1000 * 5)
 }
 
+function endGame() {
+    if ((wrongAnswers + correctAnswers + unanswered) === questions.length) {
+        $("#question-block").empty();
+        $("#question-block").text("Game over! Here is your score:")
+        $("#answer-block").append("<h3>Correct answers: " + correctAnswers + "</h3>");
+        $("##answer-block").append("<h3>Wrong answers: " + wrongAnswers + "</h3>");
+        $("##answer-block").append("<h3>Unanswered questions: " + unanswered + "</h3>");
+        $(".reset").show();
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        unanswered = 0;
+    }
+    else {
+        setTimer();
+        displayQuestion();
+    }
+}
+
 //Play game again
+$(".reset").on("click", function() {
+    $(".reset").hide();
+    $("#answer-block").empty();
+    $("#question-block").empty();
+    setTimer();
+    displayQuestion();
+})
 
+})
 
+//Things not working:
+//Play again/reset function does not work
+//Bug when you answer the first question right or wrong, the next question displays 8 possible answers
+//Bug when you answer the third question, it will say the wrong answer
+// Keeping score not working
+//Doesn't loop through every question in the array, stops at 3 questions instead of 4
