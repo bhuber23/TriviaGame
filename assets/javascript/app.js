@@ -17,6 +17,7 @@ function start() {
     $(".start").on("click", function() {
         $(".start").hide();
         displayQuestion();
+        answerClick();
     });
 }
 start();
@@ -26,7 +27,7 @@ var questions = [
     {
         question: "Who was the first Avenger?",
         options: ["Captain America", "Iron Man", "Black Widow", "Thor"],
-        answer: 0,
+        answer: "Captain America",
         image: "assets/images/captain.gif"
 
     },
@@ -34,21 +35,21 @@ var questions = [
     {
         question: "What is the name of Tony Stark's Father?",
         options: ["Chris", "Stephen", "Howard", "Peter"],
-        answer: 2,
+        answer: "Howard",
         image: "assets/images/howard.jpg"
     },
 
     {
         question: "On what planet is the Soul Stone found?",
         options: ["Morag", "Vormir", "Earth", "Mars"],
-        answer: 1,
+        answer: "Vormir",
         image: "assets/images/vormir.jpeg"
     },
 
     {
         question: "What is Peter Quill's superhero name?",
         options: ["Iron Man", "Black Panther", "Star-lord", "Vision"],
-        answer: 2,
+        answer: "Star-lord",
         image: "assets/images/star-lord.gif"
     }
 ];
@@ -59,6 +60,7 @@ var wrongAnswers = 0;
 var list;
 var choice;
 var userChoice = "";
+var answerArray = [];
 
 
 //Function that counts down time 
@@ -71,37 +73,63 @@ function displayQuestion() {
     //to choose random question
     list = Math.floor(Math.random() * questions.length)
     choice = questions[list];
-    $("#question-block").html("<h2>" + choice.question + "</h2>");
-    for(var i = 0; i < choice.options.length; i++) {
-        //Adds div for the guess
-        var userChoice = $("<div>");
-        //Adds class to the guess
-        userChoice.addClass("answer-choice");
-        //Updates html with the possible answers to the question
-        userChoice.html(choice.options[i]);
-        //Adds data attribute
-        userChoice.attr("data-guessvalue", questions[i]);
-        //Appends with the guess the user chose
-        $("#answer-block").append(userChoice);
+    if (!answerArray.includes(choice)) {
+        $("#question-block").html("<h2>" + choice.question + "</h2>");
+        for(var i = 0; i < choice.options.length; i++) {
+            //Adds div for the guess
+            var userChoice = $("<div>");
+            //Adds class to the guess
+            userChoice.addClass("answer-choice");
+            //Updates html with the possible answers to the question
+            userChoice.html(choice.options[i]);
+            userChoice.attr("value", choice.options[i]);
+            //Appends with the guess the user chose
+            $("#answer-block").append(userChoice);
+        }
+    //Push answer into an array
+        answerArray.push(choice)
+    }
+    else if (answerArray.length === questions.length) {
+        return;
+    }
+    else {
+        displayQuestion();
     }
 }
 
 
 //Click function to register the answer that's clicked
-$(".answer-choice").on("click", function() {
-    userChoice = parseInt($(this).attr("data-guessvalue"));
+function answerClick() {
 
-    if (userChoice === choice.answer) {
+$(".answer-choice").on("click", function() {
+    var chosenAnswer = $(this).attr("value");
+    console.log(chosenAnswer);
+
+    if (chosenAnswer === choice.answer) {
         correctAnswers++;
-        userChoice = "";
-        $("#answer-block").html("<p>Correct!</p>");
+        chosenAnswer = "";
+        $("#answer-response").text("Correct!");
+        $("#answer-block").empty();
+        //Move to next question
+        nextQuestion();
     }
     else {
         wrongAnswers++;
-        userChoice = "";
-        $("#answer-block").html("<p>Sorry! The correct answer is: " + choice.options[choice.answer] + "</p>");
+        chosenAnswer = "";
+        $("#answer-response").text("Sorry! The correct answer is: " + choice.answer + "!");
+        //Move to next question
+        nextQuestion();
     }
 })
+}
+
+function nextQuestion() {
+    setTimeout(function() {
+        displayQuestion();
+        answerClick();
+        $("#answer-response").empty();
+    }, 1000 * 5)
+}
 
 //Play game again
 
