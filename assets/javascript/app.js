@@ -56,7 +56,7 @@ $(document).ready(function() {
         {
             question: "Thanos' goal throughout the course of the Infinity Saga is to collect the 6 infinity stones. In what device does Thanos put these Infinity Stones to harness their collective powers?",
             options: ["Infinity Belt", "Infinity Necklace", "Infinity Pants", "Infinity Gauntlet"],
-            answer: "Infinity gauntlet",
+            answer: "Infinity Gauntlet",
             image: "assets/images/thanos.gif"
         },
 
@@ -194,8 +194,6 @@ $(document).ready(function() {
                 setTimeout(endGame, 1000 * 5);
             }
             
-            
-            
         }
         else {
             if (answerArray.length !== questions.length){
@@ -229,8 +227,6 @@ $(document).ready(function() {
             $("#timer").empty();
         }, 1000 * 5)
         
-        
-        
     }
     
     function endGame() {
@@ -261,7 +257,6 @@ $(document).ready(function() {
         $(".reset").hide();
         $("#answer-block").empty();
         $("#question-block").empty();
-        //$("#timer").empty();
         $(".start").show();
         correctAnswers = 0;
         wrongAnswers = 0;
