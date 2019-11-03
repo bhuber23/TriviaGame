@@ -46,6 +46,9 @@ body {
 
 #timer {
     background: red;
+    width: 50%;
+    margin: auto;
+    opacity: .7;
 }
 
 .answer-choice {
