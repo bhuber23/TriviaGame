@@ -1,20 +1,5 @@
 $(document).ready(function() {
    
-
-
-    //Questions and answers
-    //Who was the first Avenger? Captain America, Iron Man, Black Widow, Thor
-    //What is the name of Tony Stark's Father? Howard, Stephen, Chris, Peter
-    //On what planet is the Soul Stone found? Vormir, Earth, Mars, Morag
-    //What is Peter Quill's superhero name? Star-lord, Iron Man, Black Panther, Vision
-    //The Infinity Saga spanned from 2008 to 2019. How many MCU films were part of this saga? 23, 16, 22, 20
-    //Spiderman makes his debut in the MCU in Captain America: Civil War. Which actor plays this (best) version of Peter Parker? Tom Holland, Tobey Maguire, Andrew Garfield, Chris Evans
-    //What color is the Time Stone? Green, purple, blue, orange
-    //Thanos' goal throughout the course of the Infinity Saga is to collect the 6 infinity stones. In what device does Thanos put these Infinity Stones to harness their collective powers? Infinity Gauntlet, Infinity Belt, Infinity Pants, Infinity Necklace
-    //In Avengers: End Game, we learn that Tony Stark and Pepper Potts have had a daughter in the 5 years after "the snap." What is their daughter's name? Morgan, Scarlett, Natasha, Wanda
-    //Which Avenger is getting a 4th solo film in Phase 4 of the MCU? Thor, Captain America, Iron Man, Hulk
-    
-    
     
     //Define variables
     var questions = [
@@ -42,8 +27,8 @@ $(document).ready(function() {
     
         {
             question: "What is Peter Quill's superhero name?",
-            options: ["Iron Man", "Black Panther", "Star-lord", "Vision"],
-            answer: "Star-lord",
+            options: ["Iron Man", "Black Panther", "Starlord", "Vision"],
+            answer: "Starlord",
             image: "assets/images/star-lord.gif"
         },
 
@@ -90,7 +75,7 @@ $(document).ready(function() {
         }
     ];
     //console.log(questions);
-    //console.log(questions[0].question)
+    
     var correctAnswers = 0;
     var wrongAnswers = 0;
     var unanswered = 0;
@@ -132,7 +117,7 @@ $(document).ready(function() {
             unanswered++;
             stop();
             $("#answer-block").empty();
-            //$("#answer-response").empty();
+            $("#timer").empty();
             $("#answer-response").text("Sorry, time is up! The correct answer is: " + choice.answer + "!");
             $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
             nextQuestion();
@@ -187,13 +172,14 @@ $(document).ready(function() {
     
     $(".answer-choice").on("click", function() {
         var chosenAnswer = $(this).attr("value");
-        console.log(chosenAnswer);
+        
     
         if (chosenAnswer === choice.answer) {
             if (answerArray.length !== questions.length){
                 
                 correctAnswers++;
                 chosenAnswer = "";
+                $("#timer").empty();
                 $("#answer-response").append("Correct!");
                 $("#answer-block").empty();
                 $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
@@ -201,6 +187,7 @@ $(document).ready(function() {
             }else{
                 correctAnswers++;
                 chosenAnswer = "";
+                $("#timer").empty();
                 $("#answer-response").append("Correct!");
                 $("#answer-block").empty();
                 $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
@@ -215,6 +202,7 @@ $(document).ready(function() {
                 
                 wrongAnswers++;
                 chosenAnswer = "";
+                $("#timer").empty();
                 $("#answer-response").text("Sorry! The correct answer is: " + choice.answer + "!");
                 $("#answer-block").empty();
                 $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
@@ -222,6 +210,7 @@ $(document).ready(function() {
             }else{
                 wrongAnswers++;
                 chosenAnswer = "";
+                
                 $("#answer-response").text("Sorry! The correct answer is: " + choice.answer + "!");
                 $("#answer-block").empty();
                 $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
@@ -250,6 +239,7 @@ $(document).ready(function() {
             $("#question-block").empty();
             $("#answer-block").empty();
             $("#answer-response").empty();
+            $("#timer").empty();
             $("#question-block").text("Game over! Here is your score:")
             $("#answer-block").append("<h3>Correct answers: " + correctAnswers + "</h3>");
             $("#answer-block").append("<h3>Wrong answers: " + wrongAnswers + "</h3>");
@@ -271,7 +261,7 @@ $(document).ready(function() {
         $(".reset").hide();
         $("#answer-block").empty();
         $("#question-block").empty();
-        $("#timer").empty();
+        //$("#timer").empty();
         $(".start").show();
         correctAnswers = 0;
         wrongAnswers = 0;

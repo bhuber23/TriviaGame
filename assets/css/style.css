@@ -22,7 +22,7 @@ body {
     font-size: 32px;
     margin: auto;
     margin-top: 20px;
-    width: 600px;
+    /* width: 650px; */
     margin-bottom: 50px;
     
 }
@@ -41,7 +41,7 @@ body {
     margin: auto;
     margin-top: 10px;
     width: 400px;
-    font-size: 20px;
+    font-size: 28px;
 }
 
 #timer {
@@ -60,4 +60,12 @@ body {
     width: 400px;
     height: 250px;
     margin-top: 20px;
+}
+
+h1 {
+    margin-top: 10px;
+}
+
+audio {
+    opacity: .5;
 }
