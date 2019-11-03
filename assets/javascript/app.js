@@ -133,6 +133,7 @@ $(document).ready(function() {
             $("#answer-block").empty();
             //$("#answer-response").empty();
             $("#answer-response").text("Sorry, time is up! The correct answer is: " + choice.answer + "!");
+            $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
             nextQuestion();
         }
     }
@@ -164,6 +165,7 @@ $(document).ready(function() {
                 //Appends with the guess the user chose
                 $("#answer-block").append(userChoice);
             }
+            
         //Push answer into an array
             answerArray.push(choice)
         }
@@ -174,6 +176,7 @@ $(document).ready(function() {
             displayQuestion();
         }
         setTimer();
+        
         
     }
     
@@ -186,29 +189,43 @@ $(document).ready(function() {
         console.log(chosenAnswer);
     
         if (chosenAnswer === choice.answer) {
-            stop();
-            correctAnswers++;
-            chosenAnswer = "";
-            $("#answer-response").append("Correct!");
-            $("#answer-block").empty();
-            $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
-            //Move to next question
-            nextQuestion();
-            //endGame();
+            if (answerArray.length !== questions.length){
+                
+                correctAnswers++;
+                chosenAnswer = "";
+                $("#answer-response").append("Correct!");
+                $("#answer-block").empty();
+                $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
+                stop();
+            }else{
+                correctAnswers++;
+                chosenAnswer = "";
+                $("#answer-response").append("Correct!");
+                $("#answer-block").empty();
+                $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
+                setTimeout(endGame, 1000 * 5);
+            }
+            
+            
             
         }
         else {
-            stop();
-            wrongAnswers++;
-            chosenAnswer = "";
-            $("#answer-response").text("Sorry! The correct answer is: " + choice.answer + "!");
-            $("#answer-block").empty();
-            $("#answer-block").append("<img src=" + choice.image + ">");
-
-            //Move to next question
-            nextQuestion();
-            //endGame();
-            
+            if (answerArray.length !== questions.length){
+                
+                wrongAnswers++;
+                chosenAnswer = "";
+                $("#answer-response").text("Sorry! The correct answer is: " + choice.answer + "!");
+                $("#answer-block").empty();
+                $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
+                stop();
+            }else{
+                wrongAnswers++;
+                chosenAnswer = "";
+                $("#answer-response").text("Sorry! The correct answer is: " + choice.answer + "!");
+                $("#answer-block").empty();
+                $("#answer-block").append("<img id='image-choice' src=" + choice.image + ">");
+                setTimeout(endGame, 1000 * 5);
+            }
         }
     })
     }
@@ -220,15 +237,18 @@ $(document).ready(function() {
             displayQuestion();
             answerClick();
             $("#timer").empty();
-        }, 1000 * 5)
+        }, 1000 * 1)
         
         
         
     }
     
     function endGame() {
-        if (answerArray === questions.length) {
+        if (answerArray.length === questions.length) {
+            clearInterval(intervalId);
             $("#question-block").empty();
+            $("#answer-block").empty();
+            $("#answer-response").empty();
             $("#question-block").text("Game over! Here is your score:")
             $("#answer-block").append("<h3>Correct answers: " + correctAnswers + "</h3>");
             $("#answer-block").append("<h3>Wrong answers: " + wrongAnswers + "</h3>");
@@ -238,10 +258,7 @@ $(document).ready(function() {
             wrongAnswers = 0;
             unanswered = 0;
         }
-        else {
-            setTimer();
-            displayQuestion();
-        }
+        
         
     }
    
@@ -252,8 +269,12 @@ $(document).ready(function() {
         $(".reset").hide();
         $("#answer-block").empty();
         $("#question-block").empty();
-        setTimer();
-        displayQuestion();
+        $(".start").show();
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        unanswered = 0;
+        answerArray = [];
+        start();
     })
     
     })
