@@ -18,8 +18,10 @@ https://bhuber23.github.io/TriviaGame/
 - Correct answers, incorrect answers, and unanswered questions will be tracked.
 - The trivia questions are based on the Marvel Cinematic Universe
 
+![Example correct answer](assets/images/correct.gif)
+![Example wrong answer](assets/images/wrong.gif)
 
-## Acknolegments
+## Acknowlegments
 - Questions inspired by events in the Marvel Cinematic Universe
 - Gifs were from giphy.com 
 - Custom font for header from fontmeme.com
