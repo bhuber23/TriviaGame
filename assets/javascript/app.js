@@ -27,17 +27,17 @@ $(document).ready(function() {
         },
     
         {
-            question: "What is the name of Tony Stark's father?",
-            options: ["Chris", "Stephen", "Howard", "Peter"],
-            answer: "Howard",
-            image: "assets/images/howard.jpg"
+            question: "What superhero does Bruce Banner turn into?",
+            options: ["Hawkeye", "The Hulk", "Thor", "Black Widow"],
+            answer: "The Hulk",
+            image: "assets/images/hulk.gif"
         },
     
         {
-            question: "On what planet is the Soul Stone found?",
-            options: ["Morag", "Vormir", "Earth", "Mars"],
-            answer: "Vormir",
-            image: "assets/images/vormir.jpeg"
+            question: "Whose weapon of choice is a bow and arrow?",
+            options: ["Hawkeye", "Scarlet Witch", "Thor", "Captain America"],
+            answer: "Hawkeye",
+            image: "assets/images/hawkeye.gif"
         },
     
         {
@@ -48,10 +48,10 @@ $(document).ready(function() {
         },
 
         {
-            question: "The Infinity Saga spanned from 2008 to 2019. How many MCU films were a part of this saga?",
-            options: ["23", "16", "22", "20"],
-            answer: "23",
-            image: "assets/images/infinity-saga.jpg"
+            question: "What was the first movie from the MCU that helped start the Infinity Saga?",
+            options: ["Captain America", "The Hulk", "Iron Man", "The Avengers"],
+            answer: "Iron Man",
+            image: "assets/images/ironman.gif"
         },
 
         {
@@ -70,9 +70,9 @@ $(document).ready(function() {
 
         {
             question: "Thanos' goal throughout the course of the Infinity Saga is to collect the 6 infinity stones. In what device does Thanos put these Infinity Stones to harness their collective powers?",
-            options: ["Infinity belt", "Infinity necklace", "Infinity pants", "Infinity gauntlet"],
+            options: ["Infinity Belt", "Infinity Necklace", "Infinity Pants", "Infinity Gauntlet"],
             answer: "Infinity gauntlet",
-            image: "assets/images/thanos.jpg"
+            image: "assets/images/thanos.gif"
         },
 
         {   
@@ -108,8 +108,9 @@ $(document).ready(function() {
     function start() {
         $(".start").on("click", function() {
             $(".start").hide();
-            displayQuestion();
             setTimer();
+            displayQuestion();
+        
             answerClick();
             
         });
@@ -237,7 +238,7 @@ $(document).ready(function() {
             displayQuestion();
             answerClick();
             $("#timer").empty();
-        }, 1000 * 1)
+        }, 1000 * 5)
         
         
         
@@ -257,6 +258,7 @@ $(document).ready(function() {
             correctAnswers = 0;
             wrongAnswers = 0;
             unanswered = 0;
+            running = false;
         }
         
         
@@ -269,19 +271,15 @@ $(document).ready(function() {
         $(".reset").hide();
         $("#answer-block").empty();
         $("#question-block").empty();
+        $("#timer").empty();
         $(".start").show();
         correctAnswers = 0;
         wrongAnswers = 0;
         unanswered = 0;
         answerArray = [];
-        start();
+        
     })
     
     })
     
-    //Things not working:
-    //Play again/reset function does not work
-    //Bug when you answer the first question right or wrong, the next question displays 8 possible answers
-    //Bug when you answer the third question, it will say the wrong answer
-    // Keeping score not working
-    //Doesn't loop through every question in the array, stops at 3 questions instead of 4
+    
